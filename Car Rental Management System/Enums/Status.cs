@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Car_Rental_Management_System.Enums
 {
-    internal class Status
+    public enum Status
     {
+        Ongoing, Completed, Overdue
     }
 }
