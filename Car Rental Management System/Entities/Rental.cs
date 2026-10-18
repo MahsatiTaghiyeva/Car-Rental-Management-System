@@ -1,28 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Car_Rental_Management_System.Enums;
+﻿using Car_Rental_Management_System.Enums;
 
 namespace Car_Rental_Management_System.Entities
 {
-    internal class Rental
+    public class Rental
     {
-        public int Id { get; set; } 
-        public int CardId { get; set; }
+        public int Id { get; set; }
+
+        public int CarId { get; set; }
         public int CustomerId { get; set; }
+
         public DateTime StartDate { get; set; }
         public DateTime ExpectedReturnDate { get; set; }
-        public DateTime? ActualReturnDate { get; set; } // Nullable to handle cases where the car hasn't been returned yet
+        public DateTime? ActualReturnDate { get; set; }
+
         public decimal DailyPrice { get; set; }
         public decimal TotalPrice { get; set; }
-        public Status Status { get; set; }  // e.g., "Ongoing", "Completed", "Overdue"
-        public List<Payment> Payments { get; set; } = new List<Payment>();
-        public List<PenaltyMaintenanceRecord> PenaltyMaintenanceRecords { get; set; } = new List<PenaltyMaintenanceRecord>();
-        public string ToString()
+
+        public Status Status { get; set; }
+
+        // Navigation properties
+        public Car Car { get; set; } = null!;
+        public Customer Customer { get; set; } = null!;
+
+        public List<Payment> Payments { get; set; } = new();
+
+        public List<Penalty> Penalties { get; set; } = new();
+
+        public override string ToString()
         {
-            return $"Rental ID: {Id}, Car ID: {CardId}, Customer ID: {CustomerId}, Start Date: {StartDate.ToShortDateString()}, Expected Return Date: {ExpectedReturnDate.ToShortDateString()}, Actual Return Date: {(ActualReturnDate.HasValue ? ActualReturnDate.Value.ToShortDateString() : "Not Returned")}, Daily Price: {DailyPrice:C}, Total Price: {TotalPrice:C}, Status: {Status}";
+            return $"Rental ID: {Id}, " +
+                   $"Car ID: {CarId}, " +
+                   $"Customer ID: {CustomerId}, " +
+                   $"Start Date: {StartDate:dd.MM.yyyy}, " +
+                   $"Expected Return Date: {ExpectedReturnDate:dd.MM.yyyy}, " +
+                   $"Actual Return Date: {(ActualReturnDate.HasValue ? ActualReturnDate.Value.ToString("dd.MM.yyyy") : "Not Returned")}, " +
+                   $"Daily Price: {DailyPrice:F2}, " +
+                   $"Total Price: {TotalPrice:F2}, " +
+                   $"Status: {Status}";
         }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Car_Rental_Management_System.Enums
+﻿namespace Car_Rental_Management_System.Enums
 {
-    internal enum PaymentType
+    public enum PaymentType
     {
-        Advance, FinalPayment
+        Advance,
+        FinalPayment,
+        Penalty
     }
 }

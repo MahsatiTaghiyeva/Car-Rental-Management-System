@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Car_Rental_Management_System.Data
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -21,7 +21,11 @@ namespace Car_Rental_Management_System.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(AppDbContext).Assembly
+        );
         }
     }
 }
